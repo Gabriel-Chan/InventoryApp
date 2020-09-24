@@ -23,6 +23,7 @@ typedef struct {
 
 void explainProg(void);
 void item(inventory itemStock[], int items);
+void profit(inventory profitStock[],int profitItem);
 
 int main(void)
 {
@@ -101,6 +102,24 @@ void item(inventory itemStock[], int items)
 		printf("%-15d\t%-15s\t%-15d\t$%-15.2f\t$%-15.2f\n", index+1, itemStock[index].name, itemStock[index].numberOfItems, itemStock[index].cost, totalValue);
 	}
 	printf("\n\n");
+	system("pause");
+	getchar();
+	return;
+}
+
+void profit(inventory profitStock[], int profitItem)
+{
+	float showProfit = 0;
+
+	system("cls");
+	printf("\n\t\t\t\t\tItem Profit\n\n\n");
+	printf("Item No.\tItem Name\tNumber Sold\tItem Profit\n");
+	for (int index = 0; index < profitItem; index++)
+	{
+		showProfit += profitStock[index].itemProfit;
+		printf("%-15d\t%-15s\t%-15d\t$%-15.2f\n", index+1, profitStock[index].name, profitStock[index].numberSold, profitStock[index].itemProfit);
+	}
+	printf("\n\t\t\t\tTotal Profit is $%-15.2f\n\n\n", showProfit);
 	system("pause");
 	getchar();
 	return;
