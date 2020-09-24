@@ -33,10 +33,29 @@ int main(void)
 	int totalItem=0;
 	char selection;
 	inventory stock[size];
-    char selection;
+	FILE *file_pointer;
+	FILE *itemTotalp;
+
+	itemTotalp = fopen("F:TOTALITEM.DAT", "r");
+
+	if ((itemTotalp != NULL))
+	{
+		fscanf(itemTotalp, "%i", &totalItem);
+		fclose(itemTotalp);
+	}
+
+	file_pointer = fopen("F:INVENTORY.DAT", "rb");
+
+	if (file_pointer != NULL)
+	{
+		fread(stock, sizeof(inventory), size, file_pointer);
+		fclose(file_pointer);
+	}
     do
 	{
 		system("cls");
+
+		explainProg();
 
 		printf("Please enter your selection => ");
 		scanf("%c", &selection);
@@ -62,6 +81,9 @@ int main(void)
 			case 'd':
 			case 'D':
 				totalItem = newitem(stock, totalItem);
+				itemTotalp = fopen("F:TOTALITEM.DAT", "w");
+				fprintf(itemTotalp, "%i", totalItem);
+				fclose(itemTotalp);
 				break;
 
 			case 'e':
@@ -80,6 +102,11 @@ int main(void)
 
 	} while (selection != 'f' && selection != 'F');
 	printf("You are exiting the application\n");
+	file_pointer = fopen("F:INVENTORY.DAT", "wb");
+
+	fwrite(&stock, sizeof(inventory), size, file_pointer);
+
+	fclose(file_pointer);
     system("pause");
     return (0);
 }
