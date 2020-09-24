@@ -24,6 +24,7 @@ typedef struct {
 void explainProg(void);
 void item(inventory itemStock[], int items);
 void profit(inventory profitStock[],int profitItem);
+void orderMore(inventory orderStock[],int moreItem);
 
 int main(void)
 {
@@ -121,6 +122,63 @@ void profit(inventory profitStock[], int profitItem)
 	}
 	printf("\n\t\t\t\tTotal Profit is $%-15.2f\n\n\n", showProfit);
 	system("pause");
+	getchar();
+	return;
+}
+
+void orderMore(inventory orderStock[],int moreItem)
+{
+	int orderItem;
+	int order = 0;
+	char selection;
+
+	do
+	{
+		system("cls");
+		
+
+		printf("\n\t\t\t\t\t\t\t\tOrdering Existing Items\n\n");
+		printf("When placing an Order please enter \"O\", if returning to the main menu please enter \"M\"\n\n");
+
+		printf("Item No.\tItem Name\tStock Number\tCost\t\tNumber Sold\tItem Profit\n\n");
+
+		for (int index = 0; index < moreItem; index++)
+		{
+
+			printf("%-15d\t%-15s\t%-15d\t$%-7.2f\t%-15d\t$%-15.2f\n", index+1, orderStock[index].name, orderStock[index].numberOfItems, orderStock[index].cost, orderStock[index].numberSold, orderStock[index].itemProfit);
+		}
+
+		getchar();
+		printf("\nPlease enter \"O\" or \"M\": ");
+		scanf("%c", &selection);
+
+
+		if (selection == 'o' || selection == 'O')
+		{
+			printf("Please enter the item number: ");
+			scanf("%d", &orderItem);
+			if (orderItem <= moreItem)
+			{
+				printf("Please enter number of items ordered: ");
+				scanf("%d", &order);
+				orderStock[orderItem-1].numberOfItems += order;
+
+			}
+			else
+			{
+				printf("This item does not exist, please try again\n");
+				system("pause");
+			}
+		}
+		else
+		{
+			if (selection != 'm' && selection != 'M')
+			{
+				printf("Invalid selection, please try again\n");
+				system("pause");
+			}
+		}
+	} while (selection != 'm' && selection != 'M');
 	getchar();
 	return;
 }
