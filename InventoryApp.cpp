@@ -15,5 +15,48 @@ Version:1.0
 
 int main(void)
 {
+    char selection;
+    do
+	{
+		system("cls");
+
+		printf("Please enter your selection => ");
+		scanf("%c", &selection);
+
+		switch (selection)
+		{
+
+			case 'a':
+			case 'A':
+				break;
+
+			case 'b':
+			case 'B':
+				break;
+
+			case 'c':
+			case 'C':
+				break;
+
+			case 'd':
+			case 'D':
+				break;
+
+			case 'e':
+			case 'E':
+				break;
+
+			default:
+				if (selection != 'f'  && selection != 'F')
+				{
+					printf("Invalid entry, try again\n");
+					system("pause");
+				}
+				getchar();
+				}
+
+	} while (selection != 'f' && selection != 'F');
+	printf("You are exiting the application\n");
+    system("pause");
     return (0);
 }
