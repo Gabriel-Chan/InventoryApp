@@ -25,6 +25,7 @@ void explainProg(void);
 void item(inventory itemStock[], int items);
 void profit(inventory profitStock[],int profitItem);
 void orderMore(inventory orderStock[],int moreItem);
+int newitem(inventory newStock[], int newTotal);
 
 int main(void)
 {
@@ -181,4 +182,53 @@ void orderMore(inventory orderStock[],int moreItem)
 	} while (selection != 'm' && selection != 'M');
 	getchar();
 	return;
+}
+
+int newitem(inventory newStock[],int newTotal)
+{
+	char selection;
+
+
+	do
+	{
+		system("cls");
+
+		printf("\n\t\t\t\t\t\t\t\tOrdering New Items\n\n");
+		printf("When adding a new item please enter \"N\", if returning to the main menu please enter \"M\"\n\n");
+
+
+		printf("Item No.\tItem Name\tStock Number\tCost\t\tNumber Sold\tItem Profit\n\n");
+
+		for (int index = 0; index < newTotal; index++)
+		{
+
+			printf("%-15d\t%-15s\t%-15d\t$%-7.2f\t%-15d\t$%-15.2f\n", index+1, newStock[index].name, newStock[index].numberOfItems, newStock[index].cost, newStock[index].numberSold, newStock[index].itemProfit);
+		}
+		getchar();
+		printf("\nPlease enter \"N\" or \"M\": ");
+		scanf("%c", &selection);
+		if (selection == 'N' || selection == 'n')
+		{
+			getchar();
+			printf("Please enter the name of new item: ");
+			gets_s(newStock[newTotal].name);
+			printf("Please enter the cost of new item: ");
+			scanf("%f", &newStock[newTotal].cost);
+			printf("Please enter number of new items ordered ");
+			scanf("%d", &newStock[newTotal].numberOfItems);
+			newStock[newTotal].numberSold = 0;
+			newStock[newTotal].itemProfit = 0;
+			newTotal++;
+		}
+		else
+		{
+			if (selection != 'm' && selection != 'M')
+			{
+				printf("Invalid selection, please try again\n");
+				system("pause");
+			}
+		}
+	} while (selection != 'm' && selection != 'M');
+	getchar();
+	return newTotal;
 }
