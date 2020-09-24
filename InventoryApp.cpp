@@ -26,6 +26,7 @@ void item(inventory itemStock[], int items);
 void profit(inventory profitStock[],int profitItem);
 void orderMore(inventory orderStock[],int moreItem);
 int newitem(inventory newStock[], int newTotal);
+void sales(inventory saleStock[], int afterSale);
 
 int main(void)
 {
@@ -231,4 +232,73 @@ int newitem(inventory newStock[],int newTotal)
 	} while (selection != 'm' && selection != 'M');
 	getchar();
 	return newTotal;
+}
+
+void sales(inventory saleStock[], int afterSale)
+{
+	int input;
+	char selection;
+	float profitTotal = 0;
+	int itemsSold;
+
+	do
+	{
+		system("cls");
+
+		printf("\n\t\t\t\t\t\t\t\tSale Of Items\n\n");
+		printf("When adding sale of item please enter \"S\", if returning to the main menu please enter \"M\"\n\n");
+
+		printf("Item No.\tItem Name\tStock Number\tCost\t\tNumber Sold\tItem Profit\n\n");
+
+		for (int index = 0; index < afterSale; index++)
+		{
+			profitTotal += saleStock[index].itemProfit;
+			printf("%-15d\t%-15s\t%-15d\t$%-7.2f\t%-15d\t$%-15.2f\n", index+1, saleStock[index].name, saleStock[index].numberOfItems, saleStock[index].cost, saleStock[index].numberSold, saleStock[index].itemProfit);
+			
+		}
+		printf("\n\n\t\t\t\t\t\t\t\tTotal Profit is $%-15.2f\n", profitTotal);
+
+		getchar();
+		printf("\nPlease enter \"S\" or \"M\": ");
+		scanf("%c", &selection);
+		if (selection == 's' || selection == 'S')
+		{
+			printf("Please enter the item number: ");
+			scanf("%d", &input);
+			if (input <= afterSale)
+			{
+				printf("Please enter number of items sold: ");
+				scanf("%d", &itemsSold);
+				if (itemsSold <= saleStock[input - 1].numberOfItems)
+				{
+					saleStock[input - 1].itemProfit = saleStock[input - 1].cost * 1.5 * itemsSold;
+					saleStock[input - 1].numberOfItems -= itemsSold;
+					saleStock[input - 1].numberSold += itemsSold;
+				}
+				else if (itemsSold > saleStock[input - 1].numberOfItems)
+				{
+					printf("This is over what is in stock, please order more or input a less amount\n");
+					system("pause");
+				}
+				else
+				{
+					printf("Invalid entry, please try again");
+				}
+			}
+			else
+			{
+				printf("This item does not exist, please try again\n");
+			}
+		}
+		else
+		{
+			if (selection != 'm' && selection != 'M')
+			{
+				printf("Invalid selection, please try again\n");
+				system("pause");
+			}
+		}
+	} while (selection != 'm' && selection != 'M');
+	getchar();
+	return;
 }
