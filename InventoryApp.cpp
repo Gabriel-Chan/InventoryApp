@@ -7,6 +7,7 @@ Version:1.0
 */
 
 #define _CRT_SECURE_NO_WARNINGS
+#define size 10
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,6 +22,7 @@ typedef struct {
 }inventory;
 
 void explainProg(void);
+void item(inventory itemStock[], int items);
 
 int main(void)
 {
@@ -84,5 +86,22 @@ void explainProg(void)
 	printf("d) Order new items\n");
 	printf("e) Enter the sale of items\n");
 	printf("f) Quit\n\n\n");
+	return;
+}
+
+void item(inventory itemStock[], int items)
+{
+	float totalValue;
+	system("cls");
+	printf("\n\t\t\t\t\tItems in Stock\n\n\n");
+	printf("Item No.\tItem Name\tStock Number\tCost\t\t\tTotal Value\n");
+	for (int index = 0; index < items; index++)
+	{
+		totalValue = itemStock[index].cost * itemStock[index].numberOfItems;
+		printf("%-15d\t%-15s\t%-15d\t$%-15.2f\t$%-15.2f\n", index+1, itemStock[index].name, itemStock[index].numberOfItems, itemStock[index].cost, totalValue);
+	}
+	printf("\n\n");
+	system("pause");
+	getchar();
 	return;
 }
