@@ -30,6 +30,9 @@ void sales(inventory saleStock[], int afterSale);
 
 int main(void)
 {
+	int totalItem=0;
+	char selection;
+	inventory stock[size];
     char selection;
     do
 	{
@@ -43,22 +46,27 @@ int main(void)
 
 			case 'a':
 			case 'A':
+				item(stock, totalItem);
 				break;
 
 			case 'b':
 			case 'B':
+				profit(stock, totalItem);
 				break;
 
 			case 'c':
 			case 'C':
+				orderMore(stock, totalItem);
 				break;
 
 			case 'd':
 			case 'D':
+				totalItem = newitem(stock, totalItem);
 				break;
 
 			case 'e':
 			case 'E':
+				sales(stock, totalItem);
 				break;
 
 			default:
